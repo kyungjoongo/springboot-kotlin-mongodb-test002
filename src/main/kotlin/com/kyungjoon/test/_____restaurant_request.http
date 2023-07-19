@@ -1,0 +1,28 @@
+POST http://localhost:4000/restaurant
+Content-Type: application/json
+
+{
+
+  "address": "kyungjoon is genius!!!고경준 천재님이십니ㅏㄷㄴㅇlkfsldkf!!333333333",
+  "borough": "sdlfksdlfk",
+  "cuisine": "sdlfksdlfk",
+  "grades": "sdflkgdlfkglskdfg",
+  "name": "sldkfsdlkf",
+  "restaurantId" :"lskdfl"
+
+
+}
+
+###
+
+DELETE http://localhost:4000/restaurant/all
+Content-Type: application/json
+
+{}
+
+###
+
+GET http://localhost:4000/restaurant/64b71c2151c0f71765867710
+Accept: application/json
+
+###
