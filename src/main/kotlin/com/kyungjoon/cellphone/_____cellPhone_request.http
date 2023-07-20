@@ -2,7 +2,7 @@ POST http://localhost:8080/cellPhone
 Content-Type: application/json
 
 {
-  "modelName": "sdlkfsdlkf",
+  "modelName": "삼성갤락시",
   "realName": "sdlkfsdlkf",
   "cpuCount": "sdlkfsdlkf",
   "gpu": "sdlkfsdlkf",
