@@ -2,6 +2,6 @@ package com.kyungjoon.client
 
 import org.springframework.data.mongodb.repository.MongoRepository
 
-interface CellPhoneRepo : MongoRepository<CellPhoneModel, String> {
+interface CellPhoneRepo : MongoRepository<CoffeeModel, String> {
 
 }

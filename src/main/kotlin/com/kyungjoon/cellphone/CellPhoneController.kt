@@ -6,42 +6,42 @@ import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
-class CellPhoneController(@Autowired val cellPhoneRepo: CellPhoneRepo) {
+class CellPhoneController(@Autowired val coffeeRepo: CoffeeRepo) {
 
     @GetMapping("/cellPhone")
-    fun getCount(): MutableList<CellPhoneModel> {
+    fun getCount(): MutableList<CoffeeModel> {
         val direction = Sort.by(Sort.Direction.DESC, "id")
         println("sdflksdkfsdlkf===>>>>>>>")
-        return cellPhoneRepo.findAll(direction)
+        return coffeeRepo.findAll(direction)
     }
 
     @PostMapping("/cellPhone")
-    fun postClient(@RequestBody cellPhoneModel: CellPhoneModel): CellPhoneModel {
-        return cellPhoneRepo.insert(cellPhoneModel)
+    fun postClient(@RequestBody coffeeModel: CoffeeModel): CoffeeModel {
+        return coffeeRepo.insert(coffeeModel)
     }
 
     @GetMapping("/cellPhone/{id}")
-    fun getClientById(@PathVariable("id") id: String): Optional<CellPhoneModel> {
-        return cellPhoneRepo.findById(id)
+    fun getClientById(@PathVariable("id") id: String): Optional<CoffeeModel> {
+        return coffeeRepo.findById(id)
     }
 
     @DeleteMapping("/cellPhone/{id}")
     fun deleteClient(@PathVariable("id") id: String) {
-        cellPhoneRepo.findById(id).let {
-            cellPhoneRepo.deleteById(id)
+        coffeeRepo.findById(id).let {
+            coffeeRepo.deleteById(id)
         }
     }
 
     @DeleteMapping("/cellPhone/all")
     fun deleteAllClient() {
         println("sflksdlfksdlkf");
-        cellPhoneRepo.deleteAll()
+        coffeeRepo.deleteAll()
     }
 
     @PatchMapping("/cellPhone/{id}")
-    fun updateClientModel(@PathVariable("id") id: String, @RequestBody cellPhoneModel: CellPhoneModel): CellPhoneModel? {
-        return cellPhoneRepo.findById(id).let {
-            cellPhoneRepo.save(cellPhoneModel)
+    fun updateClientModel(@PathVariable("id") id: String, @RequestBody coffeeModel: CoffeeModel): CoffeeModel? {
+        return coffeeRepo.findById(id).let {
+            coffeeRepo.save(coffeeModel)
         }
     }
 
