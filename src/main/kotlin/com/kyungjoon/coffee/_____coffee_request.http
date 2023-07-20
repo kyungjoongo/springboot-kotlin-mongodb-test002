@@ -10,18 +10,3 @@ Content-Type: application/json
   "isLatte": false
 }
 ########
-
-PATCH http://localhost:4000/client/64b75892ccdaf961c92cc86e
-Content-Type: application/json
-
-{
-
-"name": "kyungjoon ige 고경준 천재님이십니다sdlkflsdkflkd====>>>>>>",
-"nickname": "sdflkgsdflkgdfkg",
-"age": "sdflkgsdflkgdfkg",
-"sex": "sdflkgsdflkgdfkg",
-"college": "sdflkgsdflkgdfkg",
-"location": "sdflkgsdflkgdfkg"
-
-
-}
