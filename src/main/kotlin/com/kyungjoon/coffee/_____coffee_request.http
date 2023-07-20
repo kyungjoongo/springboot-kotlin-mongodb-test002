@@ -10,3 +10,15 @@ Content-Type: application/json
   "isLatte": false
 }
 ########
+
+PATCH http://localhost:8080/coffee/64b9ac8defd88356a97109dd
+Content-Type: application/json
+
+{
+  "coffeeType": "집에서 먹는 아이스 커피77777777777777777_고경준이 먹는 것입니다sdlfksdlkflsdkflk",
+  "smell": "good!",
+  "favor": "쓰다",
+  "origin": "브라질산",
+  "shots": "sdlkflsdkflsdklfksdlfkksdlf",
+  "isLatte": false
+}
