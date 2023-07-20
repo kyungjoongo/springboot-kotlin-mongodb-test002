@@ -1,5 +1,6 @@
 POST http://localhost:8080/coffee
 Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmcmVzaCIsImlhdCI6MTY4NDkyMjIwOCwiZXhwIjoxNjg0OTI0MDA4LCJpZCI6IuyVhOydtOuUlCIsImVtYWlsIjoiYWp1ZnJlc2hAZ21haWwuY29tIn0.gXj3yLtyAWxgVg0uUm-p4NM_Ya_kAbFlY46ir6PGk8Y eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmcmVzaCIsImlhdCI6MTY4OTg5MTc2NywiZXhwIjoxNjg5ODkzNTY3LCJpZCI6IuyVhOydtOuUlCIsImVtYWlsIjoiYWp1ZnJlc2hAZ21haWwuY29tIn0.ML997szf7-LSR71qT3L6zPROYhT1HE5NdG43e26Tk_I
 
 {
   "coffeeType": "sdlkflsdkflsdklfksdlfkksdlf",
@@ -9,6 +10,16 @@ Content-Type: application/json
   "shots": "sdlkflsdkflsdklfksdlfkksdlf",
   "isLatte": false
 }
+
+### 토큰 인증 되야 응답 내려 주도록
+### 토큰 인증 되야 응답 내려 주도록
+### 토큰 인증 되야 응답 내려 주도록
+########## 토큰 인증 되야 응답 내려 주도록
+GET http://localhost:8080/coffee
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmcmVzaCIsImlhdCI6MTY4NDkyMjIwOCwiZXhwIjoxNjg0OTI0MDA4LCJpZCI6IuyVhOydtOuUlCIsImVtYWlsIjoiYWp1ZnJlc2hAZ21haWwuY29tIn0.gXj3yLtyAWxgVg0uUm-p4NM_Ya_kAbFlY46ir6PGk8Y eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmcmVzaCIsImlhdCI6MTY4OTg5MTc2NywiZXhwIjoxNjg5ODkzNTY3LCJpZCI6IuyVhOydtOuUlCIsImVtYWlsIjoiYWp1ZnJlc2hAZ21haWwuY29tIn0.ML997szf7-LSR71qT3L6zPROYhT1HE5NdG43e26Tk_I
+###
+
 ########
 
 PATCH http://localhost:8080/coffee/64b9ac8defd88356a97109dd
