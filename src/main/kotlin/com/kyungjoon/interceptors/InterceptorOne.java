@@ -20,6 +20,12 @@ public class InterceptorOne implements HandlerInterceptor {
             System.out.println("token===>" + token);
             System.out.println("token===>" + token);
             System.out.println("token===>" + token);
+            System.out.println("token===>" + token);
+            System.out.println("token===>" + token);
+            System.out.println("token===>" + token);
+            System.out.println("token===>" + token);
+            System.out.println("token===>" + token);
+            System.out.println("token===>" + token);
 
             return true;
         } else {//todo : 해더가 없는 경우 인증이 안된 api호출 이므로 return false.!
