@@ -43,8 +43,6 @@ public class ProductController {
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         return ResponseEntity.ok().body(this.productService.createProduct(product));
     }
-
-
     /**
      * todo: gcp config file load!
      */
