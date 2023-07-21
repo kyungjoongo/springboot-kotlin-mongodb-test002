@@ -1,9 +1,10 @@
 package com.kyungjoon.product;
 
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.storage.*;
-import net.bytebuddy.utility.RandomString;
-import net.bytebuddy.utility.RandomString;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +19,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 @RestController
@@ -44,6 +44,10 @@ public class ProductController {
         return ResponseEntity.ok().body(this.productService.createProduct(product));
     }
 
+
+    /**
+     * todo: gcp config file load!
+     */
     @Value("${gcp.config.file}")
     private String gcpConfigFile;
 
@@ -52,22 +56,15 @@ public class ProductController {
     public void upload2(@RequestParam("file") MultipartFile file) throws Exception {
 
         System.out.println(file);
-
-        // The ID of your GCP project
-        String projectId = "kotlin001";
-
-        // The ID of your GCS bucket
-        String bucketName = "upload2_justin";
-
-
+        String gcpProjectId = "kotlin001";
+        String gcpBucketName = "upload2_justin";
         byte[] fileData = FileUtils.readFileToByteArray(convertFile(file));
 
-
         InputStream gcpCredentailInputStream = new ClassPathResource(gcpConfigFile).getInputStream();
-        StorageOptions options = StorageOptions.newBuilder().setProjectId(projectId).setCredentials(GoogleCredentials.fromStream(gcpCredentailInputStream)).build();
+        StorageOptions options = StorageOptions.newBuilder().setProjectId(gcpProjectId).setCredentials(GoogleCredentials.fromStream(gcpCredentailInputStream)).build();
 
         Storage storage = options.getService();
-        Bucket bucket = storage.get(bucketName, Storage.BucketGetOption.fields());
+        Bucket bucket = storage.get(gcpBucketName, Storage.BucketGetOption.fields());
 
         String originalFilename = file.getOriginalFilename();
         assert originalFilename != null;
