@@ -21,20 +21,20 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product updateProduct(Product product) throws Exception {
-        Optional<Product> productDb = this.productRepository.findById(product.getId());
-
-        if (productDb.isPresent()) {
-            Product productUpdate = productDb.get();
-            productUpdate.setId(product.getId());
-            productUpdate.setName(product.getName());
-            productUpdate.setDescription(product.getDescription());
-            productRepository.save(productUpdate);
-            return productUpdate;
-        } else {
-            throw new Exception("Record not found with id : " + product.getId());
-        }
-    }
+//    public Product updateProduct(Product product) throws Exception {
+//        Optional<Product> productDb = this.productRepository.findById(product.getId());
+//
+//        if (productDb.isPresent()) {
+//            Product productUpdate = productDb.get();
+//            productUpdate.setId(product.getId());
+//            productUpdate.setName(product.getName());
+//            productUpdate.setDescription(product.getDescription());
+//            productRepository.save(productUpdate);
+//            return productUpdate;
+//        } else {
+//            throw new Exception("Record not found with id : " + product.getId());
+//        }
+//    }
 
     public List<Product> getAllProduct() {
 
@@ -63,5 +63,14 @@ public class ProductService {
             throw new Exception("Record not found with id : " + productId);
         }
 
+    }
+
+    public boolean deleteAll() throws Exception {
+        try {
+            this.productRepository.deleteAll();
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
     }
 }

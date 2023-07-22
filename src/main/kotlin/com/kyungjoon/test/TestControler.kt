@@ -58,11 +58,14 @@ class TestControler(@Autowired val restaurantRepo: RestaurantRepo) {
         val bucket = storage[gcpBucketName, Storage.BucketGetOption.fields()]
         val originalFilename = file.originalFilename!!
         val prefixName = originalFilename!!.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
-        val ext = originalFilename!!.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
+        val ext = originalFilename.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
         println(originalFilename)
         val rString: String = this.getRandomString()
         val fullFileName = rString + "_" + prefixName + "." + ext
         val blob = bucket.create("upload_temp/$fullFileName", fileData)
+
+        println(blob.mediaLink)
+
         if (blob != null) {
             println("File successfully uploaded to GCS")
         }

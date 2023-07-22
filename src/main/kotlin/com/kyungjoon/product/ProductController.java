@@ -1,22 +1,11 @@
 package com.kyungjoon.product;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.Bucket;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
-import org.apache.commons.io.FileUtils;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Random;
 
@@ -27,11 +16,18 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProduct() {
+    @Autowired
+    private ProductRepository productRepository;
 
-        List<Product> products = productService.getAllProduct();
-        return ResponseEntity.ok().body(products);
+    @GetMapping("/products")
+    public Object getAllProduct() {
+        try {
+            Sort direction = Sort.by(Sort.Direction.DESC, "id");
+            List<Product> products = this.productRepository.findAll(direction);
+            return ResponseEntity.ok().body(products);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest();
+        }
     }
 
     @GetMapping("/products/{id}")
@@ -40,21 +36,49 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        return ResponseEntity.ok().body(this.productService.createProduct(product));
+    public Object createProduct(@RequestBody Product product) {
+        try {
+            product.setId(ObjectId.get().toHexString());
+            Product productOne = productRepository.save(product);
+            return ResponseEntity.ok().body(productOne);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return ResponseEntity.badRequest();
+        }
+    }
+
+    public String getHexString() {
+        Random rand = new Random();
+        int myRandomNumber = rand.nextInt(0x10) + 0x10; // Generates a random number between 0x10 and 0x20
+        System.out.printf("%x\n", myRandomNumber); // Prints it in hex, such as "0x14"
+        String result = Integer.toHexString(myRandomNumber); //
+
+        return result;
     }
 
 
+    @DeleteMapping("/products/all")
+    public ResponseEntity<Boolean> deleteProducts() throws Exception {
 
-    @PutMapping("/products/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable long id, @RequestBody Product product) throws Exception {
-        product.setId(id);
-        return ResponseEntity.ok().body(this.productService.updateProduct(product));
+        boolean result = this.productService.deleteAll();
+        return ResponseEntity.ok().body(result);
     }
+
+
+//    @PutMapping("/products/{id}")
+//    public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Product product) throws Exception {
+//        product.setId(id);
+//        return ResponseEntity.ok().body(this.productService.updateProduct(product));
+//    }
 
     @DeleteMapping("/products/{id}")
-    public HttpStatus deleteProduct(@PathVariable long id) throws Exception {
-        this.productService.deleteProduct(id);
-        return HttpStatus.OK;
+    public Object deleteProduct(@PathVariable long id) throws Exception {
+        try {
+            this.productRepository.deleteAll();
+            return ResponseEntity.ok();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return ResponseEntity.badRequest();
+        }
     }
 }

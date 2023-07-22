@@ -2,9 +2,12 @@ POST http://localhost:8080/products
 Content-Type: application/json
 
 {
-  "id"  : 1,
-  "name": "고경준",
-  "description": "고경준 천재님이십니다sdlfksdlkflks"
+  "name": "고경준77777777777777",
+  "description": "고경준 천재님이십니다sdlfksdlkflks",
+  "price" : "1000",
+  "origin" : "korea"
 }
 
 ###
+
+DELETE http://localhost:8080/products/all
