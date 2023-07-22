@@ -7,14 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Random;
+import java.util.Optional;
 
 
 @RestController
 public class ProductController {
-
-    @Autowired
-    private ProductService productService;
 
     @Autowired
     private ProductRepository productRepository;
@@ -31,8 +28,13 @@ public class ProductController {
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable long id) throws Exception {
-        return ResponseEntity.ok().body(productService.getProductById(id));
+    public Object getProductById(@PathVariable String id) throws Exception {
+        try{
+            Optional<Product> product= this.productRepository.findById(id);
+            return ResponseEntity.ok().body(product);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest();
+        }
     }
 
     @PostMapping("/products")
@@ -47,29 +49,35 @@ public class ProductController {
         }
     }
 
-    public String getHexString() {
-        Random rand = new Random();
-        int myRandomNumber = rand.nextInt(0x10) + 0x10; // Generates a random number between 0x10 and 0x20
-        System.out.printf("%x\n", myRandomNumber); // Prints it in hex, such as "0x14"
-        String result = Integer.toHexString(myRandomNumber); //
-
-        return result;
-    }
 
 
     @DeleteMapping("/products/all")
-    public ResponseEntity<Boolean> deleteProducts() throws Exception {
+    public Object deleteProducts() throws Exception {
 
-        boolean result = this.productService.deleteAll();
-        return ResponseEntity.ok().body(result);
+        try{
+            this.productRepository.deleteAll();;
+            return ResponseEntity.ok().body(true);
+        }catch (Exception e){
+            return ResponseEntity.badRequest();
+        }
     }
 
 
-//    @PutMapping("/products/{id}")
-//    public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Product product) throws Exception {
-//        product.setId(id);
-//        return ResponseEntity.ok().body(this.productService.updateProduct(product));
-//    }
+    @PutMapping("/products/{id}")
+    public Product updateProduct(@PathVariable String id, @RequestBody Product product) throws Exception {
+        product.setId(id);
+        Optional<Product> productDb = this.productRepository.findById(product.getId());
+        if (productDb.isPresent()) {
+            Product productUpdate = productDb.get();
+            productUpdate.setId(product.getId());
+            productUpdate.setName(product.getName());
+            productUpdate.setDescription(product.getDescription());
+            productRepository.save(productUpdate);
+            return productUpdate;
+        } else {
+            throw new Exception("Record not found with id : " + product.getId());
+        }
+    }
 
     @DeleteMapping("/products/{id}")
     public Object deleteProduct(@PathVariable long id) throws Exception {
