@@ -13,4 +13,4 @@ data class Product(
     val origin: String? = null,
 
 
-    )
+)
