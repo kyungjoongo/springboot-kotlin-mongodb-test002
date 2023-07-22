@@ -1,0 +1,14 @@
+POST http://localhost:8080/singer
+Content-Type: application/json
+
+{
+  "name": "justin_biervr345324524352345",
+  "titleSong": "holy",
+  "sex": "sdflksdlfk",
+  "nation": "sdflksdlfk",
+  "isMale": false
+}
+
+###
+
+DELETE http://localhost:8080/singer/all
