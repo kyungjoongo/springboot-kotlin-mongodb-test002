@@ -8,11 +8,12 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
+@RequestMapping("/products")
 @RestController
 class ProductController(@Autowired val productRepository: ProductRepository) {
 
 
-    @GetMapping("/products")
+    @GetMapping()
     fun getAllProduct(): Any {
         return try {
             val direction = Sort.by(Sort.Direction.DESC, "id")
@@ -23,7 +24,7 @@ class ProductController(@Autowired val productRepository: ProductRepository) {
         }
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     @Throws(Exception::class)
     fun getProductById(@PathVariable id: String): Any {
         return try {
@@ -34,7 +35,7 @@ class ProductController(@Autowired val productRepository: ProductRepository) {
         }
     }
 
-    @PostMapping("/products")
+    @PostMapping()
     fun createProduct(@RequestBody product: Product): Any {
         return try {
             product.id = ObjectId.get().toHexString()
@@ -47,7 +48,7 @@ class ProductController(@Autowired val productRepository: ProductRepository) {
     }
 
 
-    @DeleteMapping("/products/all")
+    @DeleteMapping("/all")
     @Throws(Exception::class)
     fun deleteProducts(): Any {
         return try {
@@ -59,24 +60,24 @@ class ProductController(@Autowired val productRepository: ProductRepository) {
     }
 
 
-//    @PutMapping("/products/{id}")
-//    @Throws(Exception::class)
-//    fun updateProduct(@PathVariable id: String?, @RequestBody product: Product): Product {
-//        product.id = id
-//        val productDb = productRepository.findById(product.id)
-//        return if (productDb.isPresent) {
-//            val productUpdate = productDb.get()
-//            productUpdate.id = product.id
-//            productUpdate.name = product.name
-//            productUpdate.description = product.description
-//            productRepository.save(productUpdate)
-//            productUpdate
-//        } else {
-//            throw Exception("Record not found with id : " + product.id)
-//        }
-//    }
+    @PutMapping("/{id}")
+    @Throws(Exception::class)
+    fun updateProduct(@PathVariable id: String, @RequestBody product: Product): Product {
+        product.id = id
+        val productDb = productRepository.findById(product.id!!)
+        return if (productDb.isPresent) {
+            val productUpdate = productDb.get()
+            productUpdate.id = product.id
+            productUpdate.name = product.name
+            productUpdate.description = product.description
+            productRepository.save(productUpdate)
+            productUpdate
+        } else {
+            throw Exception("Record not found with id : " + product.id)
+        }
+    }
 
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping("/{id}")
     @Throws(Exception::class)
     fun deleteProduct(@PathVariable id: Long): Any {
         return try {
@@ -86,5 +87,6 @@ class ProductController(@Autowired val productRepository: ProductRepository) {
             println(e.toString())
             ResponseEntity.badRequest()
         }
+
     }
 }

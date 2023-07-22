@@ -2,7 +2,7 @@ POST http://localhost:8080/products
 Content-Type: application/json
 
 {
-  "name": "고경주333333",
+  "name": "kyungjoon_go-recent222222",
   "description": "고경준 천재님이십니다sdlfksdlkflks",
   "price" : "1000",
   "origin" : "korea"

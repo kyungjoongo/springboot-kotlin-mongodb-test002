@@ -7,10 +7,10 @@ import org.springframework.data.mongodb.core.mapping.Document
 data class Product(
 
     @Id var id: String? = null,
-    val name: String? = null,
-    val description: String? = null,
+    var name: String? = null,
+    var description: String? = null,
     val price: String? = null,
     val origin: String? = null,
 
 
-)
+    )
