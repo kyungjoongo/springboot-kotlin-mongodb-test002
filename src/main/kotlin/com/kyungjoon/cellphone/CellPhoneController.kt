@@ -1,5 +1,6 @@
-package com.kyungjoon.client
 
+import com.kyungjoon.client.CellPhoneModel
+import com.kyungjoon.client.CellPhoneRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Sort
 import org.springframework.web.bind.annotation.*
@@ -10,21 +11,21 @@ import java.util.*
 class CellPhoneController(@Autowired val cellPhoneRepo: CellPhoneRepo) {
 
     @GetMapping("/cellPhone")
-    fun getCount(): MutableList<CoffeeModel> {
+    fun getCount(): MutableList<CellPhoneModel> {
         val direction = Sort.by(Sort.Direction.DESC, "id")
         println("sdflksdkfsdlkf===>>>>>>>")
         return cellPhoneRepo.findAll(direction)
     }
 
     @PostMapping("/cellPhone")
-    fun postClient(@RequestBody coffeeModel: CoffeeModel): CoffeeModel {
-        return cellPhoneRepo.insert(coffeeModel)
+    fun postClient(@RequestBody cellPhoneModel: CellPhoneModel): CellPhoneModel {
+        return cellPhoneRepo.insert(cellPhoneModel)
     }
 
 
 
     @GetMapping("/cellPhone/{id}")
-    fun getClientById(@PathVariable("id") id: String): Optional<CoffeeModel> {
+    fun getClientById(@PathVariable("id") id: String): Optional<CellPhoneModel> {
         return cellPhoneRepo.findById(id)
     }
 
@@ -41,10 +42,11 @@ class CellPhoneController(@Autowired val cellPhoneRepo: CellPhoneRepo) {
         cellPhoneRepo.deleteAll()
     }
 
+
     @PatchMapping("/cellPhone/{id}")
-    fun updateClientModel(@PathVariable("id") id: String, @RequestBody coffeeModel: CoffeeModel): CoffeeModel? {
+    fun updateClientModel(@PathVariable("id") id: String, @RequestBody cellPhoneModel: CellPhoneModel): CellPhoneModel? {
         return cellPhoneRepo.findById(id).let {
-            cellPhoneRepo.save(coffeeModel)
+            cellPhoneRepo.save(cellPhoneModel)
         }
     }
 
